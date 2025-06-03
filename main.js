@@ -161,3 +161,36 @@ document.getElementById('nav-diff').onclick = function() { showSection('diff'); 
 
 // Set default section
 showSection('products');
+
+// Theme toggle logic
+const themeSwitch = document.getElementById('themeSwitch');
+const themeLabel = document.getElementById('themeLabel');
+
+function setTheme(dark) {
+  if (dark) {
+    document.body.classList.add('dark');
+    themeLabel.textContent = 'Dark';
+    localStorage.setItem('theme', 'dark');
+  } else {
+    document.body.classList.remove('dark');
+    themeLabel.textContent = 'Light';
+    localStorage.setItem('theme', 'light');
+  }
+}
+
+themeSwitch.addEventListener('change', function() {
+  setTheme(this.checked);
+});
+
+// On load, set theme from localStorage or system preference
+(function() {
+  const saved = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (saved === 'dark' || (!saved && prefersDark)) {
+    themeSwitch.checked = true;
+    setTheme(true);
+  } else {
+    themeSwitch.checked = false;
+    setTheme(false);
+  }
+})();
