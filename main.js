@@ -3,6 +3,28 @@ const productsEditor = new JSONEditor(document.getElementById('productsContainer
 const faqsEditor = new JSONEditor(document.getElementById('faqsContainer'), { mode: 'tree' });
 const customerProductEditor = new JSONEditor(document.getElementById('customerProductContainer'), { mode: 'tree' });
 
+// Mode switchers for editors
+function setEditorMode(editor, mode) {
+  try {
+    const current = editor.get();
+    editor.setMode(mode);
+    editor.set(current);
+  } catch (e) {
+    // fallback: just set mode
+    editor.setMode(mode);
+  }
+}
+
+document.getElementById('productsModeSelect').addEventListener('change', function() {
+  setEditorMode(productsEditor, this.value);
+});
+document.getElementById('faqsModeSelect').addEventListener('change', function() {
+  setEditorMode(faqsEditor, this.value);
+});
+document.getElementById('customerProductModeSelect').addEventListener('change', function() {
+  setEditorMode(customerProductEditor, this.value);
+});
+
 function extractSection(text, startTag, endTag) {
   const regex = new RegExp(`<${startTag}>([\\s\\S]*?)<${endTag}>`, 'g');
   const match = regex.exec(text);
@@ -185,8 +207,7 @@ themeSwitch.addEventListener('change', function() {
 // On load, set theme from localStorage or system preference
 (function() {
   const saved = localStorage.getItem('theme');
-  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  if (saved === 'dark' || (!saved && prefersDark)) {
+  if (saved === 'dark') {
     themeSwitch.checked = true;
     setTheme(true);
   } else {

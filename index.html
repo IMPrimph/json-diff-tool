@@ -28,16 +28,25 @@
     <h2>🧴 Product & FAQ Visualizer</h2>
     <textarea id="inputText" placeholder="Paste your tagged text here..."></textarea>
     <button onclick="parseAndDisplay()">Visualize Products & FAQs</button>
-    <h3>Products</h3>
-    <div id="productsContainer" class="editor"></div>
-    <h3>FAQs</h3>
-    <div id="faqsContainer" class="editor"></div>
+    <div class="products-faqs-flex">
+      <div class="products-panel">
+        <h3>Products</h3>
+        <div class="editor-controls"><label>Mode: <select id="productsModeSelect"><option value="tree">Tree</option><option value="code">JSON</option></select></label></div>
+        <div id="productsContainer" class="editor"></div>
+      </div>
+      <div class="faqs-panel">
+        <h3>FAQs</h3>
+        <div class="editor-controls"><label>Mode: <select id="faqsModeSelect"><option value="tree">Tree</option><option value="code">JSON</option></select></label></div>
+        <div id="faqsContainer" class="editor"></div>
+      </div>
+    </div>
   </div>
 
   <div id="section-customer" style="display:none">
     <h2>🔍 Customer Query Product Details Visualizer (New)</h2>
     <textarea id="customerQueryText" placeholder='Paste "Customer is asking about below product" data here...'></textarea>
     <button onclick="parseCustomerQuery()">Visualize Customer Query Product</button>
+    <div class="editor-controls"><label>Mode: <select id="customerProductModeSelect"><option value="tree">Tree</option><option value="code">JSON</option></select></label></div>
     <div id="customerProductContainer" class="editor"></div>
   </div>
 
