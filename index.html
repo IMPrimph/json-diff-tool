@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Product & FAQ Visualizer + Diff Tool (Extended)</title>
+  <link href="https://cdn.jsdelivr.net/npm/jsoneditor@9.10.2/dist/jsoneditor.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/jsoneditor@9.10.2/dist/jsoneditor.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/diff@5.1.0/dist/diff.min.js"></script>
+</head>
+
+<body>
+  <nav class="navbar">
+    <button id="nav-products">🧴 Product & FAQ Visualizer</button>
+    <button id="nav-customer">🔍 Customer Query Product Visualizer</button>
+    <button id="nav-diff">📌 Diff Tool</button>
+  </nav>
+
+  <div id="section-products">
+    <h2>🧴 Product & FAQ Visualizer</h2>
+    <textarea id="inputText" placeholder="Paste your tagged text here..."></textarea>
+    <button onclick="parseAndDisplay()">Visualize Products & FAQs</button>
+    <h3>Products</h3>
+    <div id="productsContainer" class="editor"></div>
+    <h3>FAQs</h3>
+    <div id="faqsContainer" class="editor"></div>
+  </div>
+
+  <div id="section-customer" style="display:none">
+    <h2>🔍 Customer Query Product Details Visualizer (New)</h2>
+    <textarea id="customerQueryText" placeholder='Paste "Customer is asking about below product" data here...'></textarea>
+    <button onclick="parseCustomerQuery()">Visualize Customer Query Product</button>
+    <div id="customerProductContainer" class="editor"></div>
+  </div>
+
+  <div id="section-diff" style="display:none">
+    <h2>📌 Diff Tool (Optimized)</h2>
+    <textarea id="originalText" placeholder="Original text..."></textarea>
+    <textarea id="modifiedText" placeholder="Modified text..."></textarea>
+    <button onclick="showDiff()">Show Differences</button>
+    <div class="diff-split-container">
+      <div class="diff-split">
+        <h3>Original</h3>
+        <div id="diffOutputOriginal" class="diff"></div>
+      </div>
+      <div class="diff-split">
+        <h3>Modified</h3>
+        <div id="diffOutputModified" class="diff"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+
+</html>
