@@ -204,7 +204,7 @@ themeSwitch.addEventListener('change', function() {
   setTheme(this.checked);
 });
 
-// On load, set theme from localStorage or system preference
+// On load, set theme from localStorage (default to light)
 (function() {
   const saved = localStorage.getItem('theme');
   if (saved === 'dark') {
