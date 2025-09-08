@@ -3,8 +3,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Manifest – Product & FAQ Visualizer + Diff Tool</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%232d7ff9'/%3E%3Ctext x='50%' y='54%' text-anchor='middle' font-size='32' fill='white' font-family='Segoe UI, Arial, sans-serif' dy='.3em'%3EM%3C/text%3E%3C/svg%3E">
+  <title>Manifest | Data Analysis & Visualization Platform</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23667eea'/%3E%3Cstop offset='100%25' style='stop-color:%23764ba2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='30' fill='url(%23grad)'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' font-size='28' fill='white' font-family='system-ui, -apple-system, sans-serif' font-weight='600' dy='.3em'%3EM%3C/text%3E%3C/svg%3E">
   <link href="https://cdn.jsdelivr.net/npm/jsoneditor@9.10.2/dist/jsoneditor.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="style.css"/>
   <script src="https://cdn.jsdelivr.net/npm/jsoneditor@9.10.2/dist/jsoneditor.min.js"></script>
@@ -14,13 +14,44 @@
 <body>
   <nav class="navbar">
     <div class="brand">
-      <span class="brand-logo">🟦</span>
+      <div class="brand-logo">
+        <svg width="32" height="32" viewBox="0 0 32 32">
+          <defs>
+            <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#667eea"/>
+              <stop offset="100%" style="stop-color:#764ba2"/>
+            </linearGradient>
+          </defs>
+          <rect width="32" height="32" rx="8" fill="url(#brandGrad)"/>
+          <text x="16" y="22" text-anchor="middle" fill="white" font-family="system-ui" font-size="18" font-weight="600">M</text>
+        </svg>
+      </div>
       <span class="brand-title">Manifest</span>
     </div>
     <div class="nav-links">
-      <button id="nav-products">🧴 Product & FAQ Visualizer</button>
-      <button id="nav-customer">🔍 Customer Query Product Visualizer</button>
-      <button id="nav-diff">📌 Diff Tool</button>
+      <button id="nav-products" class="nav-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 6L9 17l-5-5"/>
+        </svg>
+        Product & FAQ Analyzer
+      </button>
+      <button id="nav-customer" class="nav-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="21 21l-4.35-4.35"/>
+        </svg>
+        Customer Query Analyzer
+      </button>
+      <button id="nav-diff" class="nav-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14,2 14,8 20,8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+          <polyline points="10,9 9,9 8,9"/>
+        </svg>
+        Diff Tool
+      </button>
     </div>
     <div class="theme-toggle">
       <label class="switch">
@@ -32,15 +63,31 @@
   </nav>
 
   <div id="section-products">
-    <h2>🧴 Product & FAQ Visualizer</h2>
+    <div class="section-header">
+      <h1>Product & FAQ Analyzer</h1>
+      <p class="section-description">Parse and visualize product data with intelligent FAQ extraction</p>
+    </div>
     <textarea id="inputText" placeholder="Paste your tagged text here..."></textarea>
-    <button onclick="parseAndDisplay()">Visualize Products & FAQs</button>
+    <button class="primary-btn" onclick="parseAndDisplay()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/>
+      </svg>
+      Analyze Data
+    </button>
     <div class="products-faqs-flex">
       <div class="products-panel">
         <h3>Products</h3>
         <div class="editor-controls">
           <label>Mode: <select id="productsModeSelect"><option value="tree">Tree</option><option value="code">JSON</option></select></label>
-          <button type="button" class="expand-btn" id="expandProductsBtn" title="Expand">⤢ Expand</button>
+          <button type="button" class="expand-btn" id="expandProductsBtn" title="Expand">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,3 21,3 21,9"/>
+              <polyline points="9,21 3,21 3,15"/>
+              <line x1="21" y1="3" x2="14" y2="10"/>
+              <line x1="3" y1="21" x2="10" y2="14"/>
+            </svg>
+            Expand
+          </button>
         </div>
         <div id="productsContainer" class="editor"></div>
       </div>
@@ -48,7 +95,15 @@
         <h3>FAQs</h3>
         <div class="editor-controls">
           <label>Mode: <select id="faqsModeSelect"><option value="tree">Tree</option><option value="code">JSON</option></select></label>
-          <button type="button" class="expand-btn" id="expandFaqsBtn" title="Expand">⤢ Expand</button>
+          <button type="button" class="expand-btn" id="expandFaqsBtn" title="Expand">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,3 21,3 21,9"/>
+              <polyline points="9,21 3,21 3,15"/>
+              <line x1="21" y1="3" x2="14" y2="10"/>
+              <line x1="3" y1="21" x2="10" y2="14"/>
+            </svg>
+            Expand
+          </button>
         </div>
         <div id="faqsContainer" class="editor"></div>
       </div>
@@ -56,21 +111,45 @@
   </div>
 
   <div id="section-customer" style="display:none">
-    <h2>🔍 Customer Query Product Details Visualizer (New)</h2>
+    <div class="section-header">
+      <h1>Customer Query Analyzer</h1>
+      <p class="section-description">Analyze customer inquiries and extract product details</p>
+    </div>
     <textarea id="customerQueryText" placeholder='Paste "Customer is asking about below product" data here...'></textarea>
-    <button onclick="parseCustomerQuery()">Visualize Customer Query Product</button>
+    <button class="primary-btn" onclick="parseCustomerQuery()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/>
+      </svg>
+      Analyze Query
+    </button>
     <div class="editor-controls">
       <label>Mode: <select id="customerProductModeSelect"><option value="tree">Tree</option><option value="code">JSON</option></select></label>
-      <button type="button" class="expand-btn" id="expandCustomerBtn" title="Expand">⤢ Expand</button>
+      <button type="button" class="expand-btn" id="expandCustomerBtn" title="Expand">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15,3 21,3 21,9"/>
+          <polyline points="9,21 3,21 3,15"/>
+          <line x1="21" y1="3" x2="14" y2="10"/>
+          <line x1="3" y1="21" x2="10" y2="14"/>
+        </svg>
+        Expand
+      </button>
     </div>
     <div id="customerProductContainer" class="editor"></div>
   </div>
 
   <div id="section-diff" style="display:none">
-    <h2>📌 Diff Tool (Optimized)</h2>
+    <div class="section-header">
+      <h1>Text Comparison Tool</h1>
+      <p class="section-description">Compare text differences with advanced highlighting</p>
+    </div>
     <textarea id="originalText" placeholder="Original text..."></textarea>
     <textarea id="modifiedText" placeholder="Modified text..."></textarea>
-    <button onclick="showDiff()">Show Differences</button>
+    <button class="primary-btn" onclick="showDiff()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 11H5a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h4m6-6h4a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-4m-6 0v-8a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v8"/>
+      </svg>
+      Compare Texts
+    </button>
     <div class="diff-split-container">
       <div class="diff-split">
         <h3>Original</h3>
@@ -90,7 +169,13 @@
         <span id="overlayTitle">Expanded View</span>
         <div class="overlay-actions">
           <label>Mode: <select id="overlayModeSelect"><option value="tree">Tree</option><option value="code">JSON</option></select></label>
-          <button type="button" id="overlayCloseBtn">✕ Close</button>
+          <button type="button" class="close-btn" id="overlayCloseBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+            Close
+          </button>
         </div>
       </div>
       <div id="overlayEditorContainer" class="overlay-editor"></div>
