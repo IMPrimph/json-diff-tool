@@ -38,12 +38,18 @@
     <div class="products-faqs-flex">
       <div class="products-panel">
         <h3>Products</h3>
-        <div class="editor-controls"><label>Mode: <select id="productsModeSelect"><option value="tree">Tree</option><option value="code">JSON</option></select></label></div>
+        <div class="editor-controls">
+          <label>Mode: <select id="productsModeSelect"><option value="tree">Tree</option><option value="code">JSON</option></select></label>
+          <button type="button" class="expand-btn" id="expandProductsBtn" title="Expand">⤢ Expand</button>
+        </div>
         <div id="productsContainer" class="editor"></div>
       </div>
       <div class="faqs-panel">
         <h3>FAQs</h3>
-        <div class="editor-controls"><label>Mode: <select id="faqsModeSelect"><option value="tree">Tree</option><option value="code">JSON</option></select></label></div>
+        <div class="editor-controls">
+          <label>Mode: <select id="faqsModeSelect"><option value="tree">Tree</option><option value="code">JSON</option></select></label>
+          <button type="button" class="expand-btn" id="expandFaqsBtn" title="Expand">⤢ Expand</button>
+        </div>
         <div id="faqsContainer" class="editor"></div>
       </div>
     </div>
@@ -53,7 +59,10 @@
     <h2>🔍 Customer Query Product Details Visualizer (New)</h2>
     <textarea id="customerQueryText" placeholder='Paste "Customer is asking about below product" data here...'></textarea>
     <button onclick="parseCustomerQuery()">Visualize Customer Query Product</button>
-    <div class="editor-controls"><label>Mode: <select id="customerProductModeSelect"><option value="tree">Tree</option><option value="code">JSON</option></select></label></div>
+    <div class="editor-controls">
+      <label>Mode: <select id="customerProductModeSelect"><option value="tree">Tree</option><option value="code">JSON</option></select></label>
+      <button type="button" class="expand-btn" id="expandCustomerBtn" title="Expand">⤢ Expand</button>
+    </div>
     <div id="customerProductContainer" class="editor"></div>
   </div>
 
@@ -71,6 +80,20 @@
         <h3>Modified</h3>
         <div id="diffOutputModified" class="diff"></div>
       </div>
+    </div>
+  </div>
+
+  <!-- Fullscreen overlay for expanded editors -->
+  <div id="expandOverlay" class="overlay" style="display:none">
+    <div class="overlay-inner">
+      <div class="overlay-header">
+        <span id="overlayTitle">Expanded View</span>
+        <div class="overlay-actions">
+          <label>Mode: <select id="overlayModeSelect"><option value="tree">Tree</option><option value="code">JSON</option></select></label>
+          <button type="button" id="overlayCloseBtn">✕ Close</button>
+        </div>
+      </div>
+      <div id="overlayEditorContainer" class="overlay-editor"></div>
     </div>
   </div>
 
