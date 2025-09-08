@@ -474,6 +474,10 @@ document.getElementById('nav-diff').onclick = function() { showSection('diff'); 
 
 // Handle URL parameters for integration
 function handleUrlParameters() {
+  console.log('handleUrlParameters called');
+  console.log('URL:', window.location.href);
+  console.log('Hash:', window.location.hash);
+  
   const urlParams = new URLSearchParams(window.location.search);
   const hashParams = new URLSearchParams(window.location.hash.slice(1));
   
@@ -481,28 +485,55 @@ function handleUrlParameters() {
   const section = urlParams.get('section') || hashParams.get('section');
   const content = urlParams.get('content') || hashParams.get('content');
   
+  console.log('Section:', section);
+  console.log('Content length:', content ? content.length : 'null');
+  
   if (section && content) {
     const decodedContent = decodeURIComponent(content);
+    console.log('Decoded content preview:', decodedContent.substring(0, 100) + '...');
     
     if (section === 'products') {
       showSection('products');
-      document.getElementById('inputText').value = decodedContent;
-      // Auto-parse if content is provided
-      setTimeout(() => parseAndDisplay(), 100);
+      const inputEl = document.getElementById('inputText');
+      if (inputEl) {
+        inputEl.value = decodedContent;
+        console.log('Content loaded into products textarea');
+        // Auto-parse if content is provided
+        setTimeout(() => {
+          console.log('Auto-parsing products...');
+          parseAndDisplay();
+        }, 500);
+      } else {
+        console.error('inputText element not found');
+      }
     } else if (section === 'customer') {
       showSection('customer');
-      document.getElementById('customerQueryText').value = decodedContent;
-      // Auto-parse if content is provided
-      setTimeout(() => parseCustomerQuery(), 100);
+      const inputEl = document.getElementById('customerQueryText');
+      if (inputEl) {
+        inputEl.value = decodedContent;
+        console.log('Content loaded into customer textarea');
+        // Auto-parse if content is provided
+        setTimeout(() => {
+          console.log('Auto-parsing customer query...');
+          parseCustomerQuery();
+        }, 500);
+      } else {
+        console.error('customerQueryText element not found');
+      }
     }
   } else {
+    console.log('No section/content found, showing default');
     // Set default section
     showSection('products');
   }
 }
 
-// Initialize with URL parameters
-handleUrlParameters();
+// Initialize with URL parameters - ensure DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', handleUrlParameters);
+} else {
+  handleUrlParameters();
+}
 
 // Listen for hash changes to handle navigation
 window.addEventListener('hashchange', handleUrlParameters);
