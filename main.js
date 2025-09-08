@@ -489,7 +489,21 @@ function handleUrlParameters() {
   console.log('Content length:', content ? content.length : 'null');
   
   if (section && content) {
-    const decodedContent = decodeURIComponent(content);
+    let decodedContent;
+    try {
+      // Try normal decoding first
+      decodedContent = decodeURIComponent(content);
+    } catch (error) {
+      console.warn('Initial decoding failed, trying alternative method:', error);
+      try {
+        // Try double-decoding in case it's double-encoded
+        decodedContent = decodeURIComponent(decodeURIComponent(content));
+      } catch (error2) {
+        console.warn('Double decoding failed, using raw content:', error2);
+        // Use the raw content if decoding fails
+        decodedContent = content.replace(/\+/g, ' '); // Replace + with spaces as basic fix
+      }
+    }
     console.log('Decoded content preview:', decodedContent.substring(0, 100) + '...');
     
     if (section === 'products') {
