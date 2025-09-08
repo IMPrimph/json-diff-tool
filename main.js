@@ -472,8 +472,40 @@ document.getElementById('nav-products').onclick = function() { showSection('prod
 document.getElementById('nav-customer').onclick = function() { showSection('customer'); };
 document.getElementById('nav-diff').onclick = function() { showSection('diff'); };
 
-// Set default section
-showSection('products');
+// Handle URL parameters for integration
+function handleUrlParameters() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const hashParams = new URLSearchParams(window.location.hash.slice(1));
+  
+  // Check both URL params and hash params
+  const section = urlParams.get('section') || hashParams.get('section');
+  const content = urlParams.get('content') || hashParams.get('content');
+  
+  if (section && content) {
+    const decodedContent = decodeURIComponent(content);
+    
+    if (section === 'products') {
+      showSection('products');
+      document.getElementById('inputText').value = decodedContent;
+      // Auto-parse if content is provided
+      setTimeout(() => parseAndDisplay(), 100);
+    } else if (section === 'customer') {
+      showSection('customer');
+      document.getElementById('customerQueryText').value = decodedContent;
+      // Auto-parse if content is provided
+      setTimeout(() => parseCustomerQuery(), 100);
+    }
+  } else {
+    // Set default section
+    showSection('products');
+  }
+}
+
+// Initialize with URL parameters
+handleUrlParameters();
+
+// Listen for hash changes to handle navigation
+window.addEventListener('hashchange', handleUrlParameters);
 
 // Theme toggle logic
 const themeSwitch = document.getElementById('themeSwitch');
