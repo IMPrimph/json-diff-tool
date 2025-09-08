@@ -474,10 +474,6 @@ document.getElementById('nav-diff').onclick = function() { showSection('diff'); 
 
 // Handle URL parameters for integration
 function handleUrlParameters() {
-  console.log('handleUrlParameters called');
-  console.log('URL:', window.location.href);
-  console.log('Hash:', window.location.hash);
-  
   const urlParams = new URLSearchParams(window.location.search);
   const hashParams = new URLSearchParams(window.location.hash.slice(1));
   
@@ -485,58 +481,39 @@ function handleUrlParameters() {
   const section = urlParams.get('section') || hashParams.get('section');
   const content = urlParams.get('content') || hashParams.get('content');
   
-  console.log('Section:', section);
-  console.log('Content length:', content ? content.length : 'null');
-  
   if (section && content) {
     let decodedContent;
     try {
       // Try normal decoding first
       decodedContent = decodeURIComponent(content);
     } catch (error) {
-      console.warn('Initial decoding failed, trying alternative method:', error);
       try {
         // Try double-decoding in case it's double-encoded
         decodedContent = decodeURIComponent(decodeURIComponent(content));
       } catch (error2) {
-        console.warn('Double decoding failed, using raw content:', error2);
         // Use the raw content if decoding fails
         decodedContent = content.replace(/\+/g, ' '); // Replace + with spaces as basic fix
       }
     }
-    console.log('Decoded content preview:', decodedContent.substring(0, 100) + '...');
     
     if (section === 'products') {
       showSection('products');
       const inputEl = document.getElementById('inputText');
       if (inputEl) {
         inputEl.value = decodedContent;
-        console.log('Content loaded into products textarea');
         // Auto-parse if content is provided
-        setTimeout(() => {
-          console.log('Auto-parsing products...');
-          parseAndDisplay();
-        }, 500);
-      } else {
-        console.error('inputText element not found');
+        setTimeout(() => parseAndDisplay(), 500);
       }
     } else if (section === 'customer') {
       showSection('customer');
       const inputEl = document.getElementById('customerQueryText');
       if (inputEl) {
         inputEl.value = decodedContent;
-        console.log('Content loaded into customer textarea');
         // Auto-parse if content is provided
-        setTimeout(() => {
-          console.log('Auto-parsing customer query...');
-          parseCustomerQuery();
-        }, 500);
-      } else {
-        console.error('customerQueryText element not found');
+        setTimeout(() => parseCustomerQuery(), 500);
       }
     }
   } else {
-    console.log('No section/content found, showing default');
     // Set default section
     showSection('products');
   }
